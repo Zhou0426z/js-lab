@@ -68,11 +68,18 @@
     function target() {
 
       if (input.innerHTML !== "" && labelOp.innerHTML !== "") {
+
         calCulate();
+        op = this.innerHTML;
       }
+      if (input.innerHTML === "" && labelOp.innerHTML !== "") {
+        op = this.innerHTML;
+        labelOp.innerHTML = value1 + this.innerHTML;
+        return;
+      }
+      op = this.innerHTML;
       value1 = Number(input.innerHTML);
       labelOp.innerHTML = value1 + this.innerHTML;
-      op = this.innerHTML;
       input.innerHTML = "";
 
 
