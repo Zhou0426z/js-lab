@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Calculation</title>
+  <link rel="stylesheet" href="stylesheets/cal.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="cal">
+      <div id="label"></div>
+      <div id="label-op"></div>
+      <div class="button">
+        <button id="reset" onclick="cleartext()">重設</button>
+        <button class="op">+</button>
+        <button class="op">-</button>
+        <button class="op">*</button>
+        <button class="op">/</button>
+        <button class="num">1</button>
+        <button class="num">2</button>
+        <button class="num">3</button>
+        <button class="num">4</button>
+        <button class="num">5</button>
+        <button class="num">6</button>
+        <button class="num">7</button>
+        <button class="num">8</button>
+        <button class="num">9</button>
+        <button class="num">.</button>
+        <button class="num">0</button>
+        <button onclick="calCulate()">=</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    var input = document.getElementById("label");
+    var inputButtons = document.getElementsByClassName("num");
+    var targetButtons = document.getElementsByClassName("op");
+    var labelOp = document.getElementById("label-op");
+    var value1 = 0;
+    var result = 0;
+    var afterResult = false;
+    var op = "";
+
+    function inputButton() {
+      if (afterResult == true) {
+        input.innerHTML = "";
+        afterResult = false;
+      }
+      var text = this.innerHTML;
+      input.innerHTML += text;
+    }
+    for (var i = 0; i < inputButtons.length; i++) {
+      inputButtons[i].onclick = inputButton;
+    }
+
+    function cleartext() {
+      input.innerHTML = "";
+      labelOp.innerHTML = "";
+      value1 = 0;
+      value2 = 0;
+      result = 0;
+    }
+
+    function target() {
+
+      if (input.innerHTML !== "" && labelOp.innerHTML !== "") {
+        calCulate();
+      }
+      value1 = Number(input.innerHTML);
+      labelOp.innerHTML = value1 + this.innerHTML;
+      op = this.innerHTML;
+      input.innerHTML = "";
+
+
+    }
+    for (var i = 0; i < targetButtons.length; i++) {
+      targetButtons[i].onclick = target;
+    }
+
+    function calCulate() {
+      var value2 = Number(input.innerHTML);
+      switch (op) {
+        case "+":
+          result = value1 + value2;
+          break;
+        case "-":
+          result = value1 - value2;
+          break;
+        case "*":
+          result = value1 * value2;
+          break;
+        case "/":
+          result = value1 / value2;
+          break;
+        default:
+          break;
+      }
+      input.innerHTML = result;
+      labelOp.innerHTML = "";
+      value1 = 0;
+      value2 = 0;
+      result = 0;
+      afterResult = true;
+    }
+  </script>
+</body>
+
+</html>

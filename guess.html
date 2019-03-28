@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>big-or-small</title>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>終極密碼</h1>
+      <span id="range">0~100</span>
+      <input type="text" class="form-control text-center " placeholder="0" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4" id="input">
+      <div class="row">
+          <div class="col-md-12"><a class="btn btn-default btn-block btn-outline-dark" href="#" role="button" onclick="gameStart()">開始遊戲,請點我!</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >1</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >2</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >3</a></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >4</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >5</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >6</a></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >7</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >8</a></div>
+        <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button">9</a></div>
+      </div>
+      <div class="row">
+          <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark " href="#" role="button" id="cancel" onclick="cancel()">取消</a></div>
+          <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark input-pad " href="#" role="button" >0</a></div>
+          <div class="col-md-4"><a class="btn btn-default btn-block btn-outline-dark " href="#" role="button" id="confirm" onclick="Compare()">確認</a></div>
+        </div>
+  
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      var answer =0;
+      var min = 0;
+      var max =100;
+      var input = document.getElementById("input");
+      var range = document.getElementById("range");
+      var inputButtons = document.getElementsByClassName("input-pad");
+      function gameStart(){
+         answer = Math.floor(Math.random()*100);
+         alert("遊戲開始囉~");
+         min=0;
+         max=100;
+         range.innerHTML=min+"~"+max;
+         cancel();
+         for(var i =0;i<inputButtons.length;i++){
+          inputButtons[i].onclick = inputButton;
+        }
+      }
+      function inputButton(){
+        var text = this.innerHTML;
+        input.value+=text;
+      }
+      function Compare(){
+        var inputValue =Number(input.value);
+
+        if( inputValue>=max || inputValue<=min){
+          alert("請輸入範圍內的數字");
+          return;
+        }
+        if(inputValue==answer)
+        {
+          alert("Boom!遊戲結束");
+          cancel();
+          return;
+        }
+      if(answer>inputValue){
+         min = inputValue;
+      }
+      else if(answer<inputValue){
+        max = inputValue
+      }
+      range.innerHTML=min+"~"+max;
+      cancel();
+      }
+      function cancel(){
+        input.value="";
+      }
+    </script>
+  </body>
+</html>
